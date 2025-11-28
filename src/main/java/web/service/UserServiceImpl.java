@@ -13,6 +13,7 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private UserDao userDao;
 
+    @Transactional
     @Override
     public void add(User user) {
         userDao.add(user);
@@ -41,6 +42,4 @@ public class UserServiceImpl implements UserService{
     public User findById(Long id) {
         return userDao.findById(id);
     }
-
-
 }

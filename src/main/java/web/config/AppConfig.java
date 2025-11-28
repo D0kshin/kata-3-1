@@ -23,8 +23,13 @@ import java.util.Properties;
 @ComponentScan(value = "web")
 public class AppConfig {
 
-    @Autowired
     private Environment env;
+
+    // Метод сеттер для внедрения Environment
+    @Autowired
+    public void setEnvironment(Environment env) {
+        this.env = env;
+    }
 
     @Bean
     public DataSource getDataSource() {
