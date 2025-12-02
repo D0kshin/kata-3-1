@@ -16,6 +16,7 @@ import java.util.Properties;
 
 
 @Configuration
+@PropertySource("classpath:application.properties")
 @EnableTransactionManagement
 @ComponentScan(value = "web")
 public class AppConfig {
@@ -31,10 +32,10 @@ public class AppConfig {
     @Bean
     public DataSource getDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(env.getProperty("db.driver"));
-        dataSource.setUrl(env.getProperty("db.url"));
-        dataSource.setUsername(env.getProperty("db.username"));
-        dataSource.setPassword(env.getProperty("db.password"));
+        dataSource.setDriverClassName(env.getProperty("spring.datasource.driver-class-name"));
+        dataSource.setUrl(env.getProperty("spring.datasource.url"));
+        dataSource.setUsername(env.getProperty("spring.datasource.username"));
+        dataSource.setPassword(env.getProperty("spring.datasource.password"));
         return dataSource;
     }
 
@@ -50,8 +51,8 @@ public class AppConfig {
         em.setJpaVendorAdapter(vendorAdapter);
 
         Properties jpaProperties = new Properties();
-        jpaProperties.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
-        jpaProperties.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
+        jpaProperties.put("hibernate.show_sql", env.getProperty("spring.jpa.hibernate.ddl-auto"));
+        jpaProperties.put("hibernate.hbm2ddl.auto", env.getProperty("spring.jpa.hibernate.ddl-auto"));
         em.setJpaProperties(jpaProperties);
 
         return em;
